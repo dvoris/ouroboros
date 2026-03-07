@@ -157,7 +157,7 @@ class LLMClient:
         messages: List[Dict[str, Any]],
         model: str,
         tools: Optional[List[Dict[str, Any]]] = None,
-        reasoning_effort: str = "medium",
+        reasoning_effort: str = "none",
         max_tokens: int = 16384,
         tool_choice: str = "auto",
     ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
