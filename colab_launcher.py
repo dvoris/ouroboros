@@ -10,6 +10,10 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 log = logging.getLogger(__name__)
 
+from dotenv import load_dotenv
+# Load .env file at startup (if it exists)
+load_dotenv()
+
 # ----------------------------
 # 0) Install launcher deps
 # ----------------------------
@@ -50,8 +54,8 @@ install_apply_patch()
 # ----------------------------
 # 1) Secrets + runtime config
 # ----------------------------
-from google.colab import userdata  # type: ignore
-from google.colab import drive  # type: ignore
+# from google.colab import userdata  # type: ignore
+# from google.colab import drive  # type: ignore
 
 _LEGACY_CFG_WARNED: Set[str] = set()
 
