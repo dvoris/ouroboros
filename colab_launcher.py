@@ -10,6 +10,10 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 log = logging.getLogger(__name__)
 
+from dotenv import load_dotenv
+# Load .env file at startup (if it exists)
+load_dotenv()
+
 # ----------------------------
 # 0) Install launcher deps
 # ----------------------------
@@ -50,8 +54,8 @@ install_apply_patch()
 # ----------------------------
 # 1) Secrets + runtime config
 # ----------------------------
-from google.colab import userdata  # type: ignore
-from google.colab import drive  # type: ignore
+# from google.colab import userdata  # type: ignore
+# from google.colab import drive  # type: ignore
 
 _LEGACY_CFG_WARNED: Set[str] = set()
 
@@ -115,8 +119,8 @@ GITHUB_REPO = get_cfg("GITHUB_REPO", default=None, allow_legacy_secret=True)
 assert GITHUB_USER and str(GITHUB_USER).strip(), "GITHUB_USER not set. Add it to your config cell (see README)."
 assert GITHUB_REPO and str(GITHUB_REPO).strip(), "GITHUB_REPO not set. Add it to your config cell (see README)."
 MAX_WORKERS = int(get_cfg("OUROBOROS_MAX_WORKERS", default="5", allow_legacy_secret=True) or "5")
-MODEL_MAIN = get_cfg("OUROBOROS_MODEL", default="anthropic/claude-sonnet-4.6", allow_legacy_secret=True)
-MODEL_CODE = get_cfg("OUROBOROS_MODEL_CODE", default="anthropic/claude-sonnet-4.6", allow_legacy_secret=True)
+MODEL_MAIN = get_cfg("OUROBOROS_MODEL", default=DEFAULT_LIGHT_MODEL, allow_legacy_secret=True)
+MODEL_CODE = get_cfg("OUROBOROS_MODEL_CODE", default=DEFAULT_LIGHT_MODEL, allow_legacy_secret=True)
 MODEL_LIGHT = get_cfg("OUROBOROS_MODEL_LIGHT", default=DEFAULT_LIGHT_MODEL, allow_legacy_secret=True)
 
 BUDGET_REPORT_EVERY_MESSAGES = 10
@@ -152,11 +156,11 @@ if str(ANTHROPIC_API_KEY or "").strip():
 # ----------------------------
 # 2) Mount Drive
 # ----------------------------
-if not pathlib.Path("/content/drive/MyDrive").exists():
-    drive.mount("/content/drive")
+#if not pathlib.Path("/content/drive/MyDrive").exists():
+#    drive.mount("/content/drive")
 
-DRIVE_ROOT = pathlib.Path("/content/drive/MyDrive/Ouroboros").resolve()
-REPO_DIR = pathlib.Path("/content/ouroboros_repo").resolve()
+DRIVE_ROOT = pathlib.Path("/home/ftpuser/ouroboros").resolve()
+REPO_DIR = pathlib.Path("/home/ftpuser/ouroboros").resolve()
 
 for sub in ["state", "logs", "memory", "index", "locks", "archive"]:
     (DRIVE_ROOT / sub).mkdir(parents=True, exist_ok=True)

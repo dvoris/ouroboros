@@ -525,6 +525,9 @@ def per_task_cost_summary(max_tasks: int = 10, tail_bytes: int = 512_000) -> Lis
                     continue
                 try:
                     event = json.loads(line)
+                    # Проверяем, что event — это словарь, иначе пропускаем
+                    if not isinstance(event, dict):
+                        continue                   
                     if event.get("type") != "llm_usage":
                         continue
                     tid = event.get("task_id") or "unknown"

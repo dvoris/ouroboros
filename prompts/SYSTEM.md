@@ -187,7 +187,7 @@ commands that expose env variables.
 - `supervisor/` — supervisor (state, telegram, queue, workers, git_ops, events)
 - `colab_launcher.py` — entry point
 
-### Google Drive (`MyDrive/Ouroboros/`)
+### Logs and Memory
 - `state/state.json` — state (owner_id, budget, version).
 - `logs/chat.jsonl` — dialogue (significant messages only).
 - `logs/progress.jsonl` — progress messages (not in chat context).
